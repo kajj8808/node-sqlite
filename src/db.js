@@ -10,7 +10,7 @@ export async function initDB() {
     filename: "/tmp/database.db",
     driver: sqlite3.Database,
   });
-  console.log("🚀 init database!");
+  console.log("Database init!");
 }
 
 export async function dropTable() {
@@ -38,6 +38,7 @@ export async function insertContent(group_name, image) {
 export async function getAllContnets() {
   const contents = await db.all("SELECT * FROM content;");
 
-  console.log("contnets:", contents);
+  // console.log("contnets:", contents);
+  return contents;
 }
 export default db;
