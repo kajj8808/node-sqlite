@@ -1,3 +1,4 @@
+import { getFileListFromDir } from "../lib/utile";
 import db, {
   createTable,
   dropTable,
@@ -12,6 +13,10 @@ async function main() {
   // await createTable();
   // await insertContent("group_1", "image_1");
   // await getAllContnets();
+  const imageFiles = await getFileListFromDir("./public/image");
+  for (const imageFile of imageFiles) {
+    console.log(imageFile);
+  }
 }
 
 main();
