@@ -7,7 +7,7 @@ let db;
 
 export async function initDB() {
   db = await open({
-    filename: "/tmp/data.db",
+    filename: "/tmp/database.db",
     driver: sqlite3.Database,
   });
   console.log("🚀 init database!");
