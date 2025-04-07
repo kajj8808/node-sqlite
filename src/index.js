@@ -1,5 +1,6 @@
 import express from "express";
-import { getAllContnets, initDB } from "./db.js";
+import { createTable, getAllContnets, initDB } from "./db.js";
+import "../lib/utile.js";
 
 const SERVER_PORT = 5000;
 
