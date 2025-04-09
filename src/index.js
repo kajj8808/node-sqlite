@@ -1,6 +1,7 @@
 import express from "express";
-import { createTable, getAllContnets, initDB } from "./db.js";
+import { createTable, getAllContnets, initDB, insertContent } from "./db.js";
 import "../lib/utile.js";
+import { getFileListFromDir, getRandomGroup } from "../lib/utile.js";
 
 const SERVER_PORT = 5000;
 
@@ -40,6 +41,15 @@ app.get("/image/:id", (req, res) => {
 
 async function main() {
   await initDB();
+
+  const fileList = await getFileListFromDir("./public/image");
+
+  for (let imageFile of fileList) {
+    const group = getRandomGroup();
+
+    await insertContent(group, imageFile);
+  }
+
   app.listen(SERVER_PORT, () => {
     console.log(`Server is Ready: http://localhost:${SERVER_PORT}`);
   });

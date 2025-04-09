@@ -37,7 +37,6 @@ export async function insertContent(group_name, image) {
 
 export async function getAllContnets() {
   const contents = await db.all("SELECT * FROM content;");
-
   // console.log("contnets:", contents);
   return contents;
 }
