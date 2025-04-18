@@ -1,4 +1,5 @@
 import sqlite3, { Database } from "sqlite3";
+import { v4 as uuidv4 } from "uuid";
 import { open } from "sqlite";
 
 sqlite3.verbose();
@@ -28,7 +29,7 @@ export async function createTable() {
 }
 
 export async function insertContent(group_name, image) {
-  const id = new Date().getTime();
+  const id = uuidv4();
   await db.run(
     `INSERT INTO content (id, group_name, image) VALUES (?, ?, ?);`,
     [id, group_name, image]

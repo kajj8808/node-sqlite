@@ -4,6 +4,7 @@ import path from "path";
 
 import {
   createTable,
+  dropTable,
   getAllContnets,
   getGroupContnet,
   initDB,
@@ -72,6 +73,8 @@ app.get("/image/:id", (req, res) => {
 
 async function main() {
   await initDB();
+
+  //await dropTable();
   //await createTable();
 
   /* const fileList = await getFileListFromDir("./public/image");

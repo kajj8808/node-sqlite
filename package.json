@@ -14,7 +14,8 @@
     "nodemon": "^3.1.9",
     "qrcode": "^1.5.4",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
