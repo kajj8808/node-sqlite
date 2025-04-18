@@ -1,19 +1,49 @@
 import express from "express";
 import qrcode from "qrcode";
+import path from "path";
 
-import { createTable, getAllContnets, initDB, insertContent } from "./db.js";
+import {
+  createTable,
+  getAllContnets,
+  getGroupContnet,
+  initDB,
+  insertContent,
+} from "./db.js";
 import { getFileListFromDir, getRandomGroup } from "../lib/utile.js";
 
-const SERVER_PORT = 5000;
+const SERVER_PORT = 5555;
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, "../public")));
+
+const PAGES_DIR = path.join(__dirname, "../src/pages");
+
 app.get("/", (_, res) => {
+  res.sendFile(path.join(PAGES_DIR, "index.html"));
+});
+
+app.get("/group/:name", (_, res) => {
+  res.sendFile(path.join(PAGES_DIR, "group.html"));
+});
+
+app.get("/get_contnets/group/:name", async (req, res) => {
+  const groupName = req.params.name;
+  if (!groupName) {
+    return res.json({
+      ok: false,
+      route: "/get_contnets",
+      tip: "존재하지 않는 Group name임.",
+    });
+  }
+
+  const contents = await getGroupContnet(groupName);
+
   res.json({
     ok: true,
-    route: "/",
-    tip: "이 메세지가 보인다면, 서버가 잘 작동 하고 있다는 뜻임.",
-    message: "Welcome to express server! ⭐",
+    route: "/get_contnets",
+    tip: "Database 에서 특정 group의 contnent들을 가져오고 있음.",
+    contents,
   });
 });
 
@@ -41,9 +71,10 @@ app.get("/image/:id", (req, res) => {
 });
 
 async function main() {
-  /* await initDB();
+  await initDB();
+  //await createTable();
 
-  const fileList = await getFileListFromDir("./public/image");
+  /* const fileList = await getFileListFromDir("./public/image");
 
   for (let imageFile of fileList) {
     const group = getRandomGroup();

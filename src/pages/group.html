@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h3>Group one</h3>
+      <div class="image_container"></div>
+    </div>
+  </body>
+  <script>
+    const imageContainer = document.querySelector(".image_container");
+
+    const checkCurrentGroupName = (groupName) =>
+      groupName === "group_one" || groupName === "group_two";
+
+    const pathParts = window.location.pathname.split("/");
+    const groupName = pathParts[pathParts.length - 1];
+
+    window.onload = async () => {
+      if (checkCurrentGroupName(groupName)) {
+        const json = await (await fetch(`/get_contnets`)).json();
+        if (json.ok) {
+          const contents = json.contents;
+          contents.map((content) => {
+            const image = document.createElement("img");
+            image.src = `/image/${content.image}`;
+            image.id = content.id;
+            imageContainer.appendChild(image);
+          });
+        }
+
+        console.log(json);
+      }
+    };
+  </script>
+</html>

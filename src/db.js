@@ -40,4 +40,12 @@ export async function getAllContnets() {
   // console.log("contnets:", contents);
   return contents;
 }
+
+export async function getGroupContnet(groupName) {
+  const contents = await db.all(
+    `SELECT * FROM content WHERE group_name == '${groupName}';`
+  );
+
+  return contents;
+}
 export default db;
