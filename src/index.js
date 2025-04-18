@@ -6,6 +6,7 @@ import {
   createTable,
   dropTable,
   getAllContnets,
+  getGroupContent,
   getGroupContnet,
   initDB,
   insertContent,
@@ -24,8 +25,19 @@ app.get("/", (_, res) => {
   res.sendFile(path.join(PAGES_DIR, "index.html"));
 });
 
-app.get("/group/:name", (_, res) => {
-  res.sendFile(path.join(PAGES_DIR, "group.html"));
+app.get("/gallery/:id", (_, res) => {
+  res.sendFile(path.join(PAGES_DIR, "gallery.html"));
+});
+
+app.get("/get_contents/group", async (req, res) => {
+  const { name, limit, offset } = req.query;
+  const result = await getGroupContent(name, limit, offset);
+  res.json({
+    ok: true,
+    route: "/get_contnets/group",
+    tip: "Database 에서 특정 group의 contnent들을 offset에 맞게 30개씩 가져오고 있음.",
+    ...result,
+  });
 });
 
 app.get("/get_contnets/group/:name", async (req, res) => {
@@ -75,20 +87,20 @@ async function main() {
   await initDB();
 
   //await dropTable();
-  //await createTable();
+  // await createTable();
 
-  /* const fileList = await getFileListFromDir("./public/image");
+  const fileList = await getFileListFromDir("./public/image");
 
-  for (let imageFile of fileList) {
+  /* for (let imageFile of fileList) {
     const group = getRandomGroup();
 
     await insertContent(group, imageFile);
-  } */
-
+  }
+ */
   /* const qrImage = await qrcode.toDataURL(
     "https://chzzk.naver.com/live/0d027498b18371674fac3ed17247e6b8"
   );
- */
+*/
 
   app.listen(SERVER_PORT, () => {
     console.log(`Server is Ready: http://localhost:${SERVER_PORT}`);

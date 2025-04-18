@@ -21,24 +21,27 @@
       <section class="title-container">
         <h1>Image Gallery</h1>
         <h3>Browse two groups of images.</h3>
-        <button>Get All Images</button>
+        <button onclick="replacePage('/gallery/all')">Get All Images</button>
       </section>
       <section class="group-container">
         <div>
-          <a href="/group/group_one">
+          <a>
             <h3>Group A</h3>
             <span>30 Images</span>
-            <button>Browse</button>
+            <button onclick="replacePage('/gallery/group_one')">Browse</button>
           </a>
         </div>
         <div>
-          <a href="/group/group_two">
+          <a>
             <h3>Group B</h3>
             <span>30 Images</span>
-            <button>Browse</button>
+            <button onclick="replacePage('/gallery/group_two')">Browse</button>
           </a>
         </div>
       </section>
+      <div class="loading">
+        <span>🌐</span>
+      </div>
     </main>
   </body>
   <script src="js/app.js"></script>
